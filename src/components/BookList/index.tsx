@@ -5,7 +5,7 @@ export default function BookList({ itens }: { itens: Book[] }) {
   return (
     <>
       {itens.map((book) => (
-        <BookItem book={book} />
+        <BookItem key={book.id} book={book} />
       ))}
     </>
   )
