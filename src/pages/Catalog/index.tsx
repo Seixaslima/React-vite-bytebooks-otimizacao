@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../components/Header';
 import PageContent from '../../components/PageContent';
 import PageSection from '../../components/PageSection';
-import React, { Profiler, Suspense, lazy, useEffect } from 'react';
+import React, { Profiler, Suspense, lazy, useEffect, useMemo } from 'react';
 import { fetchBooks, filterItems } from '../../store/reducers/books';
 import { AppDispatch, RootState } from '../../store/store';
 import { Footer } from '../../components/Footer';
@@ -15,6 +15,11 @@ const Catalog: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const [filterInput, setFilterInput] = React.useState('');
 	const { books, filteredBooks } = useSelector((state: RootState) => state.books);
+	const header = useMemo(() => (
+		<Header>
+			<img alt='ByteBooks Logo' src='./logo.png' height={70} />
+		</Header>
+	), []);
 
 	const showingItems = filteredBooks && filteredBooks.length > 0 ? filteredBooks : books;
 
@@ -30,9 +35,7 @@ const Catalog: React.FC = () => {
 	return (
 		<Profiler id='Catalog' onRender={onRenderService}>
 			<>
-				<Header>
-					<img alt='ByteBooks Logo' src='./logo.png' height={70} />
-				</Header>
+				{header}
 				<PageSection>
 					<h2 className='text-4xl text-white font-bold'>Já sabe por onde começar?</h2>
 					<h3 className='text-base text-white font-bold mt-4'>
